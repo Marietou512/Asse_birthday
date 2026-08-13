@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assé's Birthday — Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --midnight:#0c0a17;
+    --midnight-2:#161129;
+    --wine:#361226;
+    --gold:#c9a44c;
+    --gold-light:#e8cd8a;
+    --cream:#f3ead9;
+    --cream-dim:#cfc3ab;
+    --line: rgba(201,164,76,0.28);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--midnight);
+    color:var(--cream);
+    font-family:'Cormorant Garamond', serif;
+    overflow-x:hidden;
+  }
+  .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-size:11px;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+  }
+  h1,h2,h3{
+    font-family:'Playfair Display', serif;
+    margin:0;
+    font-weight:600;
+    color:var(--cream);
+  }
+  .rule{
+    width:64px;height:1px;
+    background:var(--gold);
+    margin:22px auto;
+    opacity:0.6;
+  }
+  section{
+    position:relative;
+    padding:120px 24px;
+    max-width:640px;
+    margin:0 auto;
+    text-align:center;
+  }
+  /* Ambient stars */
+  #stars{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+  }
+  #fireworks{
+    position:fixed; inset:0; z-index:5; pointer-events:none;
+  }
+
+  /* ---- HERO ---- */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    padding:40px 24px;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-frame{
+    position:absolute; inset:18px;
+    border:1px solid var(--line);
+    pointer-events:none;
+  }
+  .hero-frame::before, .hero-frame::after,
+  .hero-frame i::before, .hero-frame i::after{
+    content:""; position:absolute; width:22px; height:22px; border:1px solid var(--gold);
+  }
+  .hero-frame::before{top:-1px; left:-1px; border-right:none; border-bottom:none;}
+  .hero-frame::after{top:-1px; right:-1px; border-left:none; border-bottom:none;}
+  .hero-frame i::before{bottom:-1px; left:-1px; border-right:none; border-top:none; position:absolute;}
+  .hero-frame i::after{bottom:-1px; right:-1px; border-left:none; border-top:none; position:absolute;}
+  .glow{
+    position:absolute; top:50%; left:50%; width:520px; height:520px;
+    background:radial-gradient(circle, rgba(201,164,76,0.16) 0%, rgba(201,164,76,0) 70%);
+    transform:translate(-50%,-50%);
+    animation:pulseGlow 6s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes pulseGlow{
+    0%,100%{opacity:.7; transform:translate(-50%,-50%) scale(1);}
+    50%{opacity:1; transform:translate(-50%,-50%) scale(1.12);}
+  }
+  .rays{
+    position:absolute; top:-40px; left:50%; transform:translateX(-50%);
+    width:340px; height:220px; opacity:.4; pointer-events:none;
+    animation:raysIn 1.8s ease both;
+  }
+  @keyframes raysIn{from{opacity:0;} to{opacity:.4;}}
+  .date-pill{
+    font-family:'Inter',sans-serif; font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--gold-light); border:1px solid var(--line); border-radius:999px;
+    padding:8px 20px; margin-top:26px;
+    animation:riseIn 1s .7s cubic-bezier(.2,.8,.2,1) both;
+    display:inline-block;
+  }
+  .seal{
+    width:112px;height:112px;
+    margin-bottom:28px;
+    animation:sealIn 1.4s cubic-bezier(.2,.8,.2,1) both;
+    position:relative; z-index:1;
+  }
+  @keyframes sealIn{
+    0%{opacity:0; transform:scale(0.4) rotate(-25deg);}
+    60%{opacity:1;}
+    100%{opacity:1; transform:scale(1) rotate(0deg);}
+  }
+  .hero h1{
+    font-size:clamp(38px,7vw,64px);
+    line-height:1.05;
+    letter-spacing:0.01em;
+    animation:riseIn 1s .3s cubic-bezier(.2,.8,.2,1) both;
+    position:relative; z-index:1;
+  }
+  .hero h1 em{
+    font-style:italic; color:var(--gold-light); font-weight:500;
+  }
+  .hero .flourish{
+    width:120px; height:14px; margin:16px auto 0;
+    animation:riseIn 1s .45s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .hero .sub{
+    font-style:italic;
+    font-size:19px;
+    color:var(--cream-dim);
+    margin-top:14px;
+    animation:riseIn 1s .5s cubic-bezier(.2,.8,.2,1) both;
+    position:relative; z-index:1;
+  }
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .scroll-cue{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+    font-family:'Inter',sans-serif; font-size:10px; letter-spacing:.3em;
+    color:var(--gold); text-transform:uppercase;
+    animation:bob 2.2s ease-in-out infinite;
+  }
+  @keyframes bob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,8px);}}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .9s ease, transform .9s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  p.lead{
+    font-size:20px; line-height:1.6; color:var(--cream-dim);
+  }
+  .sig{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    color:var(--gold-light);
+    font-size:22px;
+    margin-top:26px;
+  }
+
+  /* location card */
+  .card{
+    border:1px solid var(--line);
+    padding:36px 28px;
+    background:linear-gradient(180deg, rgba(201,164,76,0.05), transparent);
+  }
+  .card .place{
+    font-size:30px; margin:6px 0 14px;
+  }
+  .addr{font-family:'Inter',sans-serif; font-size:12px; letter-spacing:.12em; color:var(--gold-light); text-transform:uppercase;}
+
+  /* countdown */
+  .countdown{
+    display:flex; gap:22px; justify-content:center; margin-top:34px; flex-wrap:wrap;
+  }
+  .cd-block{min-width:64px;}
+  .cd-num{font-family:'Playfair Display',serif; font-size:38px; color:var(--gold-light);}
+  .cd-label{font-family:'Inter',sans-serif; font-size:10px; letter-spacing:.25em; text-transform:uppercase; color:var(--cream-dim); margin-top:4px;}
+
+  /* dress code */
+  .palette{
+    display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin:34px 0;
+  }
+  .swatch{width:52px; text-align:center; font-family:'Inter',sans-serif; font-size:10px; letter-spacing:.08em; color:var(--cream-dim); text-transform:uppercase;}
+  .swatch .dot{width:52px; height:52px; border-radius:50%; margin-bottom:8px; border:1px solid var(--line);}
+
+  table.dress{
+    width:100%; border-collapse:collapse; margin-top:16px; text-align:left;
+    font-family:'Inter',sans-serif; font-size:13px;
+  }
+  table.dress td{padding:12px 4px; border-top:1px solid var(--line); color:var(--cream-dim);}
+  table.dress td:last-child{text-align:right; color:var(--gold-light); text-transform:uppercase; letter-spacing:.08em; font-weight:600;}
+
+  /* menu */
+  .menu-group{margin-top:36px; text-align:left;}
+  .menu-title{
+    font-family:'Inter',sans-serif; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold);
+    text-align:center; margin-bottom:18px;
+  }
+  .menu-item{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px dotted var(--line); padding:10px 0;
+    gap:12px;
+  }
+  .menu-item .name{font-size:18px;}
+  .menu-item .desc{display:block; font-family:'Inter',sans-serif; font-size:11px; color:var(--cream-dim); letter-spacing:.02em;}
+  .menu-item .price{font-family:'Inter',sans-serif; font-size:13px; color:var(--gold-light); white-space:nowrap;}
+
+  /* RSVP */
+  .field{ text-align:left; margin-top:22px; }
+  .field label{
+    display:block; font-family:'Inter',sans-serif; font-size:10px; letter-spacing:.25em;
+    text-transform:uppercase; color:var(--gold); margin-bottom:8px;
+  }
+  .field input, .field textarea{
+    width:100%; background:transparent; border:none; border-bottom:1px solid var(--line);
+    color:var(--cream); font-family:'Cormorant Garamond',serif; font-size:20px; padding:8px 2px;
+    outline:none;
+  }
+  .field input::placeholder, .field textarea::placeholder{color:#6a6270;}
+  .field input:focus, .field textarea:focus{border-color:var(--gold);}
+  .choice-row{display:flex; gap:14px; margin-top:22px;}
+  .choice{
+    flex:1; padding:14px; border:1px solid var(--line); background:transparent; color:var(--cream);
+    font-family:'Inter',sans-serif; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+    cursor:pointer; transition:.25s;
+  }
+  .choice.active{ background:var(--gold); color:var(--midnight); border-color:var(--gold); font-weight:600;}
+  .btn{
+    margin-top:34px; width:100%; padding:16px; background:transparent; border:1px solid var(--gold);
+    color:var(--gold-light); font-family:'Inter',sans-serif; font-size:12px; letter-spacing:.25em; text-transform:uppercase;
+    cursor:pointer; transition:.3s;
+  }
+  .btn:hover{background:var(--gold); color:var(--midnight);}
+  .btn:disabled{opacity:.4; cursor:not-allowed;}
+
+  /* Membership card result */
+  #cardResult{display:none;}
+  .mcard-scene{
+    margin-top:40px;
+    perspective:1400px;
+  }
+  @keyframes cardFlipIn{
+    0%{opacity:0; transform:rotateY(-100deg) scale(.9);}
+    100%{opacity:1; transform:rotateY(0deg) scale(1);}
+  }
+  .mcard-inner{
+    position:relative;
+    width:100%;
+    min-height:230px;
+    transform-style:preserve-3d;
+    transition:transform .8s cubic-bezier(.2,.8,.2,1);
+    animation:cardFlipIn 1s cubic-bezier(.2,.8,.2,1) both;
+    cursor:pointer;
+  }
+  .mcard-inner.flipped{ transform:rotateY(180deg); }
+  .mcard-face{
+    position:absolute; inset:0;
+    backface-visibility:hidden;
+    border:1px solid var(--gold);
+    padding:34px 24px;
+    background:linear-gradient(160deg, var(--wine), var(--midnight-2));
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  }
+  .mcard-face.back{
+    transform:rotateY(180deg);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  }
+  .flip-hint{
+    margin-top:12px; font-family:'Inter',sans-serif; font-size:10px; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--cream-dim); text-align:center;
+  }
+  @keyframes stampFlash{
+    0%{opacity:0;}
+    15%{opacity:1;}
+    100%{opacity:0;}
+  }
+  .mcard-face .flash{
+    position:absolute; inset:0; background:var(--gold-light);
+    animation:stampFlash .5s ease both;
+    pointer-events:none;
+  }
+  .mcard-face::before, .mcard-face::after{
+    content:""; position:absolute; width:18px; height:18px; border:1px solid var(--gold); opacity:.7;
+  }
+  .mcard-face::before{top:10px; left:10px; border-right:none; border-bottom:none;}
+  .mcard-face::after{bottom:10px; right:10px; border-left:none; border-top:none;}
+  .mcard-face .club{font-family:'Inter',sans-serif; font-size:10px; letter-spacing:.35em; text-transform:uppercase; color:var(--gold);}
+  .mcard-face .arch{width:60px; height:30px; margin:16px auto 6px; border:1px solid var(--gold); border-bottom:none; border-radius:60px 60px 0 0;}
+  .mcard-face .name{font-family:'Playfair Display',serif; font-size:32px; margin:10px 0 4px;}
+  .mcard-face .status{font-family:'Inter',sans-serif; font-size:11px; letter-spacing:.15em; color:var(--cream-dim); text-transform:uppercase;}
+  .mcard-face .foot{display:flex; justify-content:space-between; margin-top:26px; border-top:1px solid var(--line); padding-top:12px; font-family:'Inter',sans-serif; font-size:10px; letter-spacing:.1em; color:var(--gold-light); text-transform:uppercase;}
+  .thanks{margin-top:18px; font-style:italic; color:var(--cream-dim); font-size:17px;}
+
+  footer{
+    text-align:center; padding:60px 24px 90px; font-family:'Inter',sans-serif; font-size:11px;
+    letter-spacing:.2em; color:#645c6e; text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<canvas id="fireworks"></canvas>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="glow"></div>
+  <svg class="seal" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="44" fill="none" stroke="#c9a44c" stroke-width="1.3"/>
+    <circle cx="50" cy="50" r="37" fill="none" stroke="#c9a44c" stroke-width="0.6"/>
+    <text x="50" y="47" text-anchor="middle" font-family="Playfair Display, serif" font-size="20" fill="#e8cd8a">AKD</text>
+    <text x="50" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="4.6" letter-spacing="1.2" fill="#c9a44c">BIRTHDAY</text>
+    <text x="50" y="67" text-anchor="middle" font-family="Inter, sans-serif" font-size="4.6" letter-spacing="1.2" fill="#c9a44c">EDITION</text>
+  </svg>
+  <p class="eyebrow" style="position:relative; z-index:1;">Réservé aux invités</p>
+  <h1>Assé's <em>Birthday</em></h1>
+  <svg class="flourish" viewBox="0 0 120 14">
+    <line x1="0" y1="7" x2="46" y2="7" stroke="#c9a44c" stroke-width="1"/>
+    <circle cx="60" cy="7" r="3.5" fill="none" stroke="#c9a44c" stroke-width="1"/>
+    <line x1="74" y1="7" x2="120" y2="7" stroke="#c9a44c" stroke-width="1"/>
+  </svg>
+  <p class="sub">Une nuit à part, pour un an de plus</p>
+  <div class="date-pill">25 février · détails à venir</div>
+  <div class="scroll-cue">Défiler ↓</div>
+</section>
+
+<!-- INVITATION -->
+<section>
+  <p class="eyebrow reveal">L'invitation</p>
+  <h2 class="reveal" style="font-size:34px; margin-top:10px;">On ouvre les portes</h2>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">
+    Cette année, Assé prend un an de plus — et on ne laisse pas passer ça sans y mettre les formes.
+    Une soirée choisie avec soin, entre bonne musique, belles rencontres et prétexte parfait
+    pour sortir sa plus belle tenue.
+  </p>
+  <p class="lead reveal">On compte sur vous pour faire partie de ceux qui y étaient.</p>
+  <p class="sig reveal">— avec amour, Assé</p>
+
+  <div class="countdown reveal" id="countdown">
+    <div class="cd-block"><div class="cd-num" id="cd-d">--</div><div class="cd-label">Jours</div></div>
+    <div class="cd-block"><div class="cd-num" id="cd-h">--</div><div class="cd-label">Heures</div></div>
+    <div class="cd-block"><div class="cd-num" id="cd-m">--</div><div class="cd-label">Min</div></div>
+    <div class="cd-block"><div class="cd-num" id="cd-s">--</div><div class="cd-label">Sec</div></div>
+  </div>
+</section>
+
+<!-- LIEU -->
+<section>
+  <p class="eyebrow reveal">Le lieu</p>
+  <h2 class="reveal" style="font-size:34px; margin-top:10px;">À confirmer</h2>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <p class="eyebrow" style="opacity:.7;">Adresse à venir</p>
+    <div class="place">Un lieu qui se mérite</div>
+    <p class="addr">Détails envoyés aux membres confirmés</p>
+  </div>
+</section>
+
+<!-- DRESS CODE -->
+<section>
+  <p class="eyebrow reveal">Dress code</p>
+  <h2 class="reveal" style="font-size:34px; margin-top:10px;">Élégance de rigueur,<br>liberté de couleurs</h2>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">Habillez-vous comme si la soirée méritait d'être photographiée — parce que ce sera le cas.</p>
+  <div class="palette reveal">
+    <div class="swatch"><div class="dot" style="background:#e8e2d5;"></div>Ivoire</div>
+    <div class="swatch"><div class="dot" style="background:#c9a44c;"></div>Doré</div>
+    <div class="swatch"><div class="dot" style="background:#4a1030;"></div>Bordeaux</div>
+    <div class="swatch"><div class="dot" style="background:#12101a;"></div>Noir</div>
+    <div class="swatch"><div class="dot" style="background:#7a5c2e;"></div>Bronze</div>
+  </div>
+  <table class="dress reveal">
+    <tr><td>Matières nobles, coupes soignées</td><td>Oui</td></tr>
+    <tr><td>Bijoux, touches dorées</td><td>Encouragé</td></tr>
+    <tr><td>Élégant mais à l'aise pour danser</td><td>Impératif</td></tr>
+    <tr><td>Jean-baskets du quotidien</td><td>Non</td></tr>
+  </table>
+</section>
+
+<!-- MENU -->
+<section>
+  <p class="eyebrow reveal">La carte</p>
+  <h2 class="reveal" style="font-size:34px; margin-top:10px;">Ce soir-là</h2>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">Un aperçu de ce qui vous attend — le reste est une surprise.</p>
+
+  <div class="menu-group reveal">
+    <div class="menu-title">À partager</div>
+    <div class="menu-item"><span class="name">Planche de fromages & charcuterie</span></div>
+    <div class="menu-item"><span class="name">Houmous, dips & pain grillé</span></div>
+    <div class="menu-item"><span class="name">Bouchées et brochettes</span></div>
+  </div>
+
+  <div class="menu-group reveal">
+    <div class="menu-title">Au verre</div>
+    <div class="menu-item"><span class="name">Champagne</span></div>
+    <div class="menu-item"><span class="name">Cocktails signature</span></div>
+    <div class="menu-item"><span class="name">Sans alcool, avec le même soin</span></div>
+  </div>
+
+  <div class="menu-group reveal">
+    <div class="menu-title">Pour finir</div>
+    <div class="menu-item"><span class="name">Le gâteau d'Assé</span></div>
+    <div class="menu-item"><span class="name">Douceurs à partager</span></div>
+  </div>
+</section>
+
+<!-- RSVP -->
+<section>
+  <p class="eyebrow reveal">Votre carte de membre</p>
+  <h2 class="reveal" style="font-size:34px; margin-top:10px;">Confirmez votre présence</h2>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">La Société n'ouvre ses portes qu'à ses membres. Confirmez pour recevoir votre carte.</p>
+
+  <form id="rsvpForm" class="reveal" onsubmit="return false;">
+    <div class="field">
+      <label>Prénom & nom</label>
+      <input type="text" id="guestName" placeholder="Votre nom de membre" required>
+    </div>
+    <div class="choice-row">
+      <button type="button" class="choice active" data-choice="oui" id="choiceOui">J'y serai</button>
+      <button type="button" class="choice" data-choice="non" id="choiceNon">Je ne pourrai pas</button>
+    </div>
+    <div class="field">
+      <label>Un petit mot (optionnel)</label>
+      <textarea id="guestNote" rows="2" placeholder="Une chanson à réclamer, une pensée..."></textarea>
+    </div>
+    <button type="button" class="btn" id="submitBtn">Rejoindre la Société</button>
+  </form>
+
+  <div id="cardResult">
+    <div class="mcard-scene">
+    <div class="mcard-inner" id="mcardInner">
+      <div class="mcard-face front">
+        <div class="flash"></div>
+        <div class="club">Assé's Birthday · Guest</div>
+        <div class="arch"></div>
+        <div class="name" id="cardName">—</div>
+        <div class="status" id="cardStatus">Présence confirmée</div>
+        <div class="foot">
+          <span id="cardNumber">N° 001</span>
+          <span>Édition anniversaire</span>
+        </div>
+      </div>
+      <div class="mcard-face back">
+        <div class="eyebrow" style="opacity:.8;">Verso</div>
+        <p style="font-style:italic; color:var(--cream-dim); font-size:18px; margin:14px 0;">"On se retrouve pour la soirée d'Assé."</p>
+        <div class="rule" style="margin:12px auto;"></div>
+        <p style="font-family:'Inter',sans-serif; font-size:10px; letter-spacing:.2em; color:var(--gold); text-transform:uppercase;">25 février</p>
+      </div>
+    </div>
+  </div>
+  <p class="flip-hint">Touchez la carte pour la retourner</p>
+  <button type="button" class="btn" id="downloadBtn" style="margin-top:18px;">Télécharger ma carte</button>
+  <p class="thanks" id="thanksMsg">Votre présence est enregistrée. On se retrouve pour la soirée d'Assé.</p>
+  </div>
+</section>
+
+<footer>Assé's Birthday · Édition anniversaire</footer>
+
+<script>
+// ---- Ambient stars ----
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let stars = [];
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = document.body.scrollHeight;
+}
+function initStars(){
+  stars = [];
+  const count = Math.floor((canvas.width*canvas.height)/9000);
+  for(let i=0;i<count;i++){
+    stars.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      r: Math.random()*1.2+0.2,
+      a: Math.random()*0.6+0.1,
+      s: Math.random()*0.015+0.003,
+      dir: Math.random()>0.5?1:-1
+    });
+  }
+}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = '#c9a44c';
+  for(const st of stars){
+    st.a += st.s*st.dir;
+    if(st.a<=0.1||st.a>=0.75) st.dir*=-1;
+    ctx.globalAlpha = st.a;
+    ctx.beginPath();
+    ctx.arc(st.x, st.y, st.r, 0, Math.PI*2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize', ()=>{resize(); initStars();});
+resize(); initStars(); draw();
+setTimeout(()=>{resize(); initStars();}, 800);
+
+// ---- Scroll reveal ----
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ---- Countdown (target: Assé's birthday, Feb 25) ----
+function getNextBirthday(){
+  const now = new Date();
+  let year = now.getFullYear();
+  let target = new Date(year, 1, 25); // month is 0-indexed: 1 = February
+  if(target < now){
+    target = new Date(year+1, 1, 25);
+  }
+  return target;
+}
+const target = getNextBirthday();
+function updateCountdown(){
+  const now = new Date();
+  let diff = Math.max(0, target-now);
+  const d = Math.floor(diff/86400000); diff-=d*86400000;
+  const h = Math.floor(diff/3600000); diff-=h*3600000;
+  const m = Math.floor(diff/60000); diff-=m*60000;
+  const s = Math.floor(diff/1000);
+  document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+// ---- Fireworks ----
+const fwCanvas = document.getElementById('fireworks');
+const fwCtx = fwCanvas.getContext('2d');
+let fwParticles = [];
+function fwResize(){
+  fwCanvas.width = window.innerWidth;
+  fwCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', fwResize);
+fwResize();
+
+const fwColors = ['#c9a44c','#e8cd8a','#f3ead9','#8a5a7a'];
+
+function launchFirework(x, y, power=1){
+  const count = 46;
+  for(let i=0;i<count;i++){
+    const angle = (Math.PI*2*i)/count + Math.random()*0.2;
+    const speed = (Math.random()*2.4 + 1.6) * power;
+    fwParticles.push({
+      x, y,
+      vx: Math.cos(angle)*speed,
+      vy: Math.sin(angle)*speed,
+      life: 1,
+      decay: Math.random()*0.012 + 0.012,
+      color: fwColors[Math.floor(Math.random()*fwColors.length)],
+      r: Math.random()*1.6 + 1
+    });
+  }
+}
+
+function fwLoop(){
+  fwCtx.clearRect(0,0,fwCanvas.width,fwCanvas.height);
+  fwParticles.forEach(p=>{
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.025; // gravity
+    p.vx *= 0.985;
+    p.life -= p.decay;
+  });
+  fwParticles = fwParticles.filter(p=>p.life>0);
+  fwParticles.forEach(p=>{
+    fwCtx.globalAlpha = Math.max(p.life,0);
+    fwCtx.fillStyle = p.color;
+    fwCtx.beginPath();
+    fwCtx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    fwCtx.fill();
+  });
+  fwCtx.globalAlpha = 1;
+  requestAnimationFrame(fwLoop);
+}
+fwLoop();
+
+function fireworksBurst(count=3){
+  let i=0;
+  const interval = setInterval(()=>{
+    const x = fwCanvas.width*(0.25 + Math.random()*0.5);
+    const y = fwCanvas.height*(0.18 + Math.random()*0.28);
+    launchFirework(x,y, 1);
+    i++;
+    if(i>=count) clearInterval(interval);
+  }, 260);
+}
+
+// small welcome burst shortly after load
+window.addEventListener('load', ()=>{
+  setTimeout(()=> fireworksBurst(3), 700);
+});
+
+// gentle continuous ambience: soft bursts on a steady rhythm
+function ambientLoop(){
+  const x = fwCanvas.width*(0.1 + Math.random()*0.8);
+  const y = fwCanvas.height*(0.1 + Math.random()*0.4);
+  launchFirework(x, y, 0.9);
+  const next = 900 + Math.random()*900;
+  setTimeout(ambientLoop, next);
+}
+setTimeout(ambientLoop, 1200);
+
+let attending = true;
+document.getElementById('choiceOui').addEventListener('click', ()=>{
+  attending = true;
+  document.getElementById('choiceOui').classList.add('active');
+  document.getElementById('choiceNon').classList.remove('active');
+});
+document.getElementById('choiceNon').addEventListener('click', ()=>{
+  attending = false;
+  document.getElementById('choiceNon').classList.add('active');
+  document.getElementById('choiceOui').classList.remove('active');
+});
+
+// ---- Submit ----
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  const name = document.getElementById('guestName').value.trim();
+  if(!name){
+    document.getElementById('guestName').style.borderColor = '#c9a44c';
+    document.getElementById('guestName').focus();
+    return;
+  }
+  document.getElementById('cardName').textContent = name;
+  document.getElementById('cardStatus').textContent = attending ? 'Présence confirmée' : 'Ne pourra malheureusement pas venir';
+  const num = Math.floor(Math.random()*80+10);
+  document.getElementById('cardNumber').textContent = 'N° 0'+num;
+  document.getElementById('thanksMsg').textContent = attending
+    ? "Votre présence est enregistrée. On se retrouve pour la soirée d'Assé."
+    : "Dommage de ne pas vous voir — vous manquerez à la Société.";
+  document.getElementById('rsvpForm').style.display = 'none';
+  document.getElementById('cardResult').style.display = 'block';
+  document.getElementById('cardResult').scrollIntoView({behavior:'smooth', block:'center'});
+  if(attending){
+    fireworksBurst(5);
+  }
+});
+
+// ---- Card flip ----
+document.getElementById('mcardInner').addEventListener('click', function(){
+  this.classList.toggle('flipped');
+});
+
+// ---- Download card as image ----
+document.getElementById('downloadBtn').addEventListener('click', ()=>{
+  const name = document.getElementById('cardName').textContent;
+  const status = document.getElementById('cardStatus').textContent;
+  const num = document.getElementById('cardNumber').textContent;
+
+  const W = 720, H = 460;
+  const cvs = document.createElement('canvas');
+  cvs.width = W; cvs.height = H;
+  const c = cvs.getContext('2d');
+
+  const grad = c.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0, '#361226');
+  grad.addColorStop(1, '#161129');
+  c.fillStyle = grad;
+  c.fillRect(0,0,W,H);
+
+  c.strokeStyle = '#c9a44c';
+  c.lineWidth = 2;
+  c.strokeRect(16,16,W-32,H-32);
+
+  c.fillStyle = '#c9a44c';
+  c.font = '600 13px Inter, sans-serif';
+  c.textAlign = 'center';
+  c.fillText("A S S É ' S   B I R T H D A Y   ·   G U E S T", W/2, 90);
+
+  c.strokeStyle = '#c9a44c';
+  c.lineWidth = 1.5;
+  c.beginPath();
+  c.moveTo(W/2-60, 130);
+  c.quadraticCurveTo(W/2, 90, W/2+60, 130);
+  c.stroke();
+
+  c.fillStyle = '#f3ead9';
+  c.font = '600 44px "Playfair Display", serif';
+  c.fillText(name, W/2, 210);
+
+  c.fillStyle = '#cfc3ab';
+  c.font = '500 15px Inter, sans-serif';
+  c.fillText(status.toUpperCase(), W/2, 250);
+
+  c.strokeStyle = 'rgba(201,164,76,0.35)';
+  c.lineWidth = 1;
+  c.beginPath();
+  c.moveTo(60, 370);
+  c.lineTo(W-60, 370);
+  c.stroke();
+
+  c.fillStyle = '#e8cd8a';
+  c.font = '600 13px Inter, sans-serif';
+  c.textAlign = 'left';
+  c.fillText(num, 60, 400);
+  c.textAlign = 'right';
+  c.fillText('ÉDITION ANNIVERSAIRE', W-60, 400);
+
+  const link = document.createElement('a');
+  link.download = 'carte-assé-birthday-' + name.replace(/\s+/g,'-').toLowerCase() + '.png';
+  link.href = cvs.toDataURL('image/png');
+  link.click();
+});
+</script>
+</body>
+</html>
